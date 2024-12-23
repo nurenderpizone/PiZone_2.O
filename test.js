@@ -1,32 +1,13 @@
-// hello  ok ok ok ok ok
-
-
-
 console.time('Start');
-function typeChangeonChange(index) {
-    let personInfo = {
-        contactInformation: [{
-            'value': '',
-            'companyId': '',
-            'streetAddress': '',
-            'suiteFloor': '',
-            'building': '',
-            'city': '',
-            'stateProvidenceDistrict': '',
-            'postalCode': '',
-            'country': '',
-        }]
-    };
-    personInfo.contactInformation[index].value = '';
-    personInfo.contactInformation[index].companyId = '';
-    personInfo.contactInformation[index].streetAddress = '';
-    personInfo.contactInformation[index].suiteFloor = '';
-    personInfo.contactInformation[index].building = '';
-    personInfo.contactInformation[index].city = '';
-    personInfo.contactInformation[index].stateProvidenceDistrict = '';
-    personInfo.contactInformation[index].postalCode = '';
-    personInfo.contactInformation[index].country = '';
-}
+var twoSum = function (nums, target) {
+    for (let i = 0; i < nums.lengt; i++) {
+        if ((nums[i] + nums[i + 1]) == target) {
+            return [i, i + 1];
+        }
+    }
+};
+console.log(
 
-typeChangeonChange(0);
+    twoSum([2, 7, 11, 15], 9)
+);
 console.timeEnd('Start');
