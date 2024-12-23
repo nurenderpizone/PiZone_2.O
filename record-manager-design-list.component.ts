@@ -37,7 +37,7 @@ import { ErrorHandlingMethods } from 'src/app/global-error-handler/error-handlin
 })
 export class RecordManagerDesignListComponent implements OnInit {
   public page = new Page();
-  public selected:any = [];
+  public selected: any = [];
   //varible for cog icon
   isMenuOpen = false;
   isRowMenuOpen = false;
@@ -48,11 +48,11 @@ export class RecordManagerDesignListComponent implements OnInit {
 
   rowIndexes: number[] = [];
   public arrSelected: any[] = [];
-  public baseModelTables:any = [];
-  public rowIdList:any = '';
-  public row:any = [];
+  public baseModelTables: any = [];
+  public rowIdList: any = '';
+  public row: any = [];
   public allEdit = true;
-  public multiEditsave:any;
+  public multiEditsave: any;
   public saveCompanyRecord = false;
   error_msg: any;
   public isFlag = [false, false, false, false, false];
@@ -60,7 +60,7 @@ export class RecordManagerDesignListComponent implements OnInit {
   public sortinParam: any = null;
   public sortOrder: any = null;
   //multi edit functionality
-  public MultiSelectArray:any = [];
+  public MultiSelectArray: any = [];
   public editview = false;
   public editmode: any;
   obj_error_msg: any[] = [];
@@ -68,15 +68,15 @@ export class RecordManagerDesignListComponent implements OnInit {
   dropdownSettings: any;
   inlineArray: any[] = [];
   baseModelTableId = '';
-  opneMultiSelectDropdownIndex:any = null;
+  opneMultiSelectDropdownIndex: any = null;
   public currentRowIndex: any = [];
-  @Input() baseTableName:any;
-  @Input() recordManagerDesign:any;
-  @Input() recordId:any;
+  @Input() baseTableName: any;
+  @Input() recordManagerDesign: any;
+  @Input() recordId: any;
   getAllData: any[] = [];
   Indexmodeltable: any;
   baseModelTableData: any;
-  multiStateArray:any = [];
+  multiStateArray: any = [];
   editState: any;
   @Output() mrvCreateButtonShow = new EventEmitter<any>();
   @Output() mrvCreateButtonHide = new EventEmitter<any>();
@@ -96,8 +96,8 @@ export class RecordManagerDesignListComponent implements OnInit {
   @Input() permissionTableName: any;
   @Input() linkId: any;
 
-  constructor(public urlparams: ActivatedRoute,  public mainlayout: MainLayoutComponent, private cd: ChangeDetectorRef, 
-    public storage: CookieService, public popup: MatDialog, public router: Router, public utils: UtilsService, 
+  constructor(public urlparams: ActivatedRoute, public mainlayout: MainLayoutComponent, private cd: ChangeDetectorRef,
+    public storage: CookieService, public popup: MatDialog, public router: Router, public utils: UtilsService,
     private service: RecordManagerDesignService, public jsonService: JsonRecordManagerDesignService, public constant: ConstantRecordManagerData,
     public commonService: CommonFunctionRecordManagerService, private errorHandling: ErrorHandlingMethods) { }
 
@@ -137,7 +137,7 @@ export class RecordManagerDesignListComponent implements OnInit {
 
   }
 
-  serverSideSorting(name:any, i:any) {
+  serverSideSorting(name: any, i: any) {
     this.utils.loading = true;
     this.isFlag = [false, false, false, false, false];
     this.isSorted[i] = !this.isSorted[i];
@@ -177,7 +177,7 @@ export class RecordManagerDesignListComponent implements OnInit {
         // Record Manager Person Get all API
         this.recordManagerPersonGet();
       }
-    }).catch((error:any) => {
+    }).catch((error: any) => {
       // const msg = error?.error.substr(error?.error?.indexOf('.: ') + 1);
       // this.error_msg = msg?.split('.-1');
       this.apiErrorEvent.emit(error.error);
@@ -186,13 +186,13 @@ export class RecordManagerDesignListComponent implements OnInit {
   }
 
   activeOpenMultiSelect = true;
-  multiSelectDropdown(index:any) {
+  multiSelectDropdown(index: any) {
     if (this.activeOpenMultiSelect) {
       this.opneMultiSelectDropdownIndex = index;
       this.isDropDown = true;
     }
   }
-  onDropDownClose(index:any) {
+  onDropDownClose(index: any) {
     if (this.opneMultiSelectDropdownIndex == index) {
       this.isDropDown = false;
       this.activeOpenMultiSelect = false;
@@ -203,7 +203,7 @@ export class RecordManagerDesignListComponent implements OnInit {
   }
 
   //checkbox select event
-  onSelect(data:any) {
+  onSelect(data: any) {
     const selected = data['selected'];
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
@@ -230,7 +230,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }, 1);
   }
 
-  setIndex(index:any, isSelected:any, row:any) {
+  setIndex(index: any, isSelected: any, row: any) {
     if (isSelected) {
       for (let i = 0; i < this.rowIndexes.length; i++) {
         if (this.rowIndexes[i] == index) {
@@ -253,9 +253,9 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
 
-  getCogIconColor(Array:any) {
-    if (Array.length != 0) {
-      if (Array.map((x:any) => x.recordState).indexOf('Active') != -1) {
+  getCogIconColor(cogArray: any) {
+    if (cogArray.length != 0) {
+      if (cogArray.map((x: any) => x.recordState).indexOf('Active') != -1) {
         return true;
       } else {
         return false;
@@ -287,7 +287,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     this.allEdit = false;
     if (this.selected.length > 0) {
       const i = 0;
-      this.selected.forEach((element:any) => {
+      this.selected.forEach((element: any) => {
         if (i === 0) {
           this.rowIdList = this.rowIdList + element.id + ',';
           this.multiEditsave = true;
@@ -302,7 +302,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     this.editmode = false;
   }
 
-  onActivate(event:any) {
+  onActivate(event: any) {
     // recordManagerDesign/edit
     if (this.editview === false || this.editview === undefined) {
       if (event.type === 'dblclick' && event.row.recordState != "Soft Deleted") {
@@ -326,7 +326,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
 
-  setActionsVisibility(event:any) {
+  setActionsVisibility(event: any) {
     if (event.event.toElement) {
       const target_element = event.event.toElement.className;
       if (target_element == 'dropdown row-menu' || target_element == 'dropdown-menu row-menu' || target_element === 'dropdown row-menu ng-star-inserted') {
@@ -344,7 +344,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
 
-  updateRecordState(event:any):any {
+  updateRecordState(event: any): any {
     if (event.state == 'Soft Deleted' || event.state == 'Archived' || event.state == 'Active' || event.state == 'Edit') {
       if (this.mainlayout.checkisRecordLock('Record_Manager_Design', event.row.id) != false) {
         return false;
@@ -353,7 +353,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     if (event.state == "Soft Deleted") {
       // click on Soft Delete option
       recordSoftDeleteState('Record Manager Design', event, this.popup).then((val) => {
-        val.afterClosed().subscribe((resultPromise:any) => {
+        val.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.apiCallForRecordStateUpdate(event);
           }
@@ -370,7 +370,7 @@ export class RecordManagerDesignListComponent implements OnInit {
         this.disableReviewControlType(this.constant.columnName.reviewControlType, this.constant.controller.reviewNotUsed, this.constant.columnName.reviewControlTypes, iindex);
         this.disableReviewControlType(this.constant.columnName.approvalControlType, this.constant.controller.approvalNotUsed, this.constant.columnName.approvalControlTypes, iindex);
       }
-      
+
       this.mainlayout.recordLockCreate(event.row.id, 'Record_Manager_Design');
       sessionStorage.setItem('returnStop', 'No');
       this.saveCompanyRecord = true;
@@ -380,7 +380,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     } else if (event.state === 'Archived') {
       // click on Archive option
       recordArchivedState('Record Manager Design', event, this.popup).then((ele) => {
-        ele.afterClosed().subscribe((resultPromise:any) => {
+        ele.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.error_msg = [];
             this.apiCallForRecordStateUpdate(event);
@@ -391,7 +391,7 @@ export class RecordManagerDesignListComponent implements OnInit {
       });
     } else {
       recordRestoreState('Record Manager Design', this.popup).then((ele) => {
-        ele.afterClosed().subscribe((resultPromise:any) => {
+        ele.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.error_msg = [];
             this.apiCallForRecordStateUpdate(event);
@@ -401,9 +401,9 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
   // Authentication popup on update record State
-  apiCallForRecordStateUpdate(event:any) {
+  apiCallForRecordStateUpdate(event: any) {
     this.error_msg = [];
-    authenticationPopup('Record Manager Design', 'Record_Manager_Design', 'Edit', this.mainlayout, RecordManagerDesignListComponent).then((data:any) => {
+    authenticationPopup('Record Manager Design', 'Record_Manager_Design', 'Edit', this.mainlayout, RecordManagerDesignListComponent).then((data: any) => {
       if (data) {
         this.updateRecord(event, data['reason'], data['password']);
         // Record Manager Person Update Record
@@ -422,10 +422,10 @@ export class RecordManagerDesignListComponent implements OnInit {
     });
   }
 
-  updateRecord(event:any, reasonForEdit = '', password = '') {
+  updateRecord(event: any, reasonForEdit = '', password = '') {
     this.loading = true;
     this.isRowMenuOpen = false;
-    const jsonObject:any = [this.utils.getJsonForUpdateRecord(event, '', true)];
+    const jsonObject: any = [this.utils.getJsonForUpdateRecord(event, '', true)];
     jsonObject[0]['reasonForEdit'] = reasonForEdit;
     jsonObject[0]['password'] = password;
     // Record State change api
@@ -442,7 +442,7 @@ export class RecordManagerDesignListComponent implements OnInit {
         event.row.Restorable = event.state;
         event.row.Archived = event.state;
         const lineOutsub = this.popup.open(EditSuccessComponent, ({ data: { title: 'Record Manager Design Record State Change', context: 'Record Manager Design record state has been updated' } }));
-        lineOutsub.afterClosed().subscribe((resultPromise:any) => {
+        lineOutsub.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.getRecordManagerGetData({ offset: 0, pageSize: '10', sort: this.sortinParam, order: this.sortOrder });
           }
@@ -451,13 +451,13 @@ export class RecordManagerDesignListComponent implements OnInit {
         this.loading = false;
         this.apiErrorEvent.emit(data.error);
       }
-    }).catch((error:any) => {
+    }).catch((error: any) => {
       this.loading = false;
       this.apiErrorEvent.emit(error.error);
     });
   }
 
-  updateEditInline(event:any) {
+  updateEditInline(event: any) {
     if (event.state === "Edit") {
       this.editview = true;
     } else {
@@ -470,7 +470,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     this.editmode = event.edit;
   }
 
-  MultiEditupdateRecordState(event: any):any {
+  MultiEditupdateRecordState(event: any): any {
     if (event.state == 'Soft Deleted' || event.state == 'Archived' || event.state == 'Active' || event.state == 'Edit') {
       if (this.mainlayout.checkisRecordLock('Record_Manager_Design', this.selected) != false) {
         return false;
@@ -478,7 +478,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
     if (event.state == "Soft Deleted") {
       recordSoftDeleteState('Record Manager Design', event, this.popup).then((val) => {
-        val.afterClosed().subscribe((resultPromise:any) => {
+        val.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.multiEditStateChange(event);
           }
@@ -490,7 +490,7 @@ export class RecordManagerDesignListComponent implements OnInit {
       this.multiEditStateChange(event);
     } else if (event.state === 'Archived') {
       recordArchivedState('Record Manager Design', event, this.popup).then((val) => {
-        val.afterClosed().subscribe((resultPromise:any) => {
+        val.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.multiEditStateChange(event);
           }
@@ -500,7 +500,7 @@ export class RecordManagerDesignListComponent implements OnInit {
       });
     } else {
       recordRestoreState('Record Manager Design', this.popup).then((val) => {
-        val.afterClosed().subscribe((resultPromise:any) => {
+        val.afterClosed().subscribe((resultPromise: any) => {
           if (resultPromise) {
             this.multiEditStateChange(event);
           }
@@ -511,7 +511,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
 
-  multiEditStateChange(event:any) {
+  multiEditStateChange(event: any) {
     this.MultiSelectArray = [];
     this.multiStateArray = [];
     this.GetSelectedRecordId();
@@ -531,7 +531,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     } else {
       for (let i = 0; i < event.row.length; i++) {
         this.editState = event.state;
-        const jsonObject:any = this.utils.getJsonForMultiUpdateRecord(event.row[i], this.editState, true);
+        const jsonObject: any = this.utils.getJsonForMultiUpdateRecord(event.row[i], this.editState, true);
         this.multiStateArray.push(jsonObject);
       }
       // Record Manager Person Update Record
@@ -587,7 +587,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     arrSelctedRows = this.arrSelected && this.arrSelected.length > 0 ? this.arrSelected : this.selected;
     this.rowIdList = '';
     if (arrSelctedRows.length > 0) {
-      arrSelctedRows.forEach((element:any) => {
+      arrSelctedRows.forEach((element: any) => {
         if (this.arrSelected && this.arrSelected.length > 0) {
           this.rowIdList = this.rowIdList + element.Row.id + ',';
           this.MultiSelectArray.push(element.Row);
@@ -599,7 +599,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     }
   }
 
-  routing(event:any) {
+  routing(event: any) {
     // let url:any = this.urlparams.snapshot.url;
     // const previousUrl:any = url?.substring(1);
     const previousUrl = localStorage.getItem('last_visited_url');
@@ -610,7 +610,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     this.router.navigateByUrl('view/Record_Manager_Design/auditlog/' + event.row.id);
   }
 
-  saveInlineRecord(event:any) {
+  saveInlineRecord(event: any) {
     event;
   }
 
@@ -651,7 +651,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     this.router.navigateByUrl('view/recordManagerDesign/create/' + this.baseTableName);
   }
 
-  getRecordManagerGetData(event:any) {
+  getRecordManagerGetData(event: any) {
     this.loading = true;
     this.error_msg = [];
     this.tableData = [];
@@ -712,7 +712,7 @@ export class RecordManagerDesignListComponent implements OnInit {
           // Create GET API request
           this.getCreateGetData();
         }
-        
+
 
       }).catch((error) => {
         // const msg = error?.substr(error?.indexOf('.: ') + 1);
@@ -722,7 +722,7 @@ export class RecordManagerDesignListComponent implements OnInit {
   }
 
   // Record Manager person Records
-  getRecordManagerPersonData(event: any, reasonForEdit:any) {
+  getRecordManagerPersonData(event: any, reasonForEdit: any) {
     this.loading = true;
     this.service.gePersonAllListGetData(this.baseModelTableData?.id, this.recordManagerDesign == this.constant.designonRecord ? this.recordId : null, 0, '100',
       this.sortinParam, this.sortOrder).then((data: any) => {
@@ -732,7 +732,7 @@ export class RecordManagerDesignListComponent implements OnInit {
         } else if (data) {
           this.loading = false;
           this.tableData = data['items'];
-          
+
           if (this.tableData.length > 0) {
             this.onStatusUpdateData(event, reasonForEdit);
           }
@@ -760,7 +760,7 @@ export class RecordManagerDesignListComponent implements OnInit {
   }
 
   // Record Manager Person Record Update
-  onStatusUpdateData(event: any, reasonForEdit:any) {
+  onStatusUpdateData(event: any, reasonForEdit: any) {
     this.service.errormessagesRemove();
     this.loading = true;
     const recordManagerDesignId = event.id;
@@ -772,9 +772,9 @@ export class RecordManagerDesignListComponent implements OnInit {
         // JSON['password'] = data1?.password;
         const reason = data1.reasonForEdit == 'Required' ? reasonForEdit : null;
         const isActiveRMDesign = this.isActiveRMDesign && this.isActiveRMDesign.length > 0 ? this.isActiveRMDesign : null;
-        const JSON: any = this.jsonService.updateRMPersonJson(this.baseModelTableData.id, this.recordId, this.tableData, recordManagerDesignId, reason, isActiveRMDesign);
+        const reviewApprovalRequest: any = this.jsonService.updateRMPersonJson(this.baseModelTableData.id, this.recordId, this.tableData, recordManagerDesignId, reason, isActiveRMDesign);
         // Create post API
-        this.service.updateRecordPerson(JSON).then((data: any) => {
+        this.service.updateRecordPerson(reviewApprovalRequest).then((data: any) => {
           if (data['ok'] !== undefined && data['ok'] === false) {
             throw data;
           }
@@ -807,20 +807,20 @@ export class RecordManagerDesignListComponent implements OnInit {
         const approvalControlTypes: any = [];
         // Assign value from array to array object for multiselect dropdown control [Review Control (Type)]
         if (this.createGetData.reviewControlTypes) {
-          this.createGetData.reviewControlTypes.forEach((element:any) => {
+          this.createGetData.reviewControlTypes.forEach((element: any) => {
             reviewControlTypes.push({ 'id': element, 'itemName': element });
           });
         }
         // Assign value from array to array object for multiselect dropdown control [Approval Control (Type)]
         if (this.createGetData.approvalControlTypes) {
-          this.createGetData.approvalControlTypes.forEach((element:any) => {
+          this.createGetData.approvalControlTypes.forEach((element: any) => {
             approvalControlTypes.push({ 'id': element, 'itemName': element });
           });
         }
         this.createGetData.reviewControlTypes = reviewControlTypes;
         this.createGetData.approvalControlTypes = approvalControlTypes;
       }
-    }).catch((error:any) => {
+    }).catch((error: any) => {
       this.loading = false;
       this.apiErrorEvent.emit(error.error);
     });
@@ -849,15 +849,15 @@ export class RecordManagerDesignListComponent implements OnInit {
       this.getAllData[index].approvalControlOrder = null;
       this.getAllData[index].approvalControlUser = null;
     }
-     // Assignment Control (User) column value assignment based on Assignment Control (Acknowledgment) column base
-     this.commonService.assignmentControlUser(this.isValidControl, this.propertyValues, this.getAllData, index);
-     const ownershipControlAckValue = this.getAllData[index].ownershipControlAcknowledgement;
-     // Ownership Control (User) value assign
-     this.commonService.ownershipControlUserValueAssignCommon(ownershipControlAckValue, this.isValidControl, this.propertyValues, this.getAllData, index);
-     // Ownership Control (Acknowledgement) value assign
-     this.commonService.ownershipControlAcknowledgementValueAssignCommon(this.isValidControl, this.propertyValues, this.getAllData, index);
-     // Remove duplicate assigned value from array
-     this.commonService.duplicateValueRemoveCommon(this.propertyValues);
+    // Assignment Control (User) column value assignment based on Assignment Control (Acknowledgment) column base
+    this.commonService.assignmentControlUser(this.isValidControl, this.propertyValues, this.getAllData, index);
+    const ownershipControlAckValue = this.getAllData[index].ownershipControlAcknowledgement;
+    // Ownership Control (User) value assign
+    this.commonService.ownershipControlUserValueAssignCommon(ownershipControlAckValue, this.isValidControl, this.propertyValues, this.getAllData, index);
+    // Ownership Control (Acknowledgement) value assign
+    this.commonService.ownershipControlAcknowledgementValueAssignCommon(this.isValidControl, this.propertyValues, this.getAllData, index);
+    // Remove duplicate assigned value from array
+    this.commonService.duplicateValueRemoveCommon(this.propertyValues);
   }
 
   disableReviewControlType(control: any, notUserValue: any, data: any, index: any) {
@@ -909,8 +909,8 @@ export class RecordManagerDesignListComponent implements OnInit {
   }
 
   cancel() {
-    confirmtationPageLeave(this.popup).then((val)=>{
-      val.afterClosed().subscribe((resultPromise:any) => {
+    confirmtationPageLeave(this.popup).then((val) => {
+      val.afterClosed().subscribe((resultPromise: any) => {
         if (resultPromise) {
           this.tableData = [];
           this.rowIdList = '';
@@ -927,7 +927,7 @@ export class RecordManagerDesignListComponent implements OnInit {
     });
   }
 
-  updateData():any {
+  updateData(): any {
     // Validation Check all control
     this.service.errormessagesRemove();
     this.errorHandling.clearError();
@@ -974,7 +974,7 @@ export class RecordManagerDesignListComponent implements OnInit {
         this.apiErrorEvent.emit(this.error_msg);
         this.RecordReviewAndApprovalGet();
       }
-    }).catch((error:any) => {
+    }).catch((error: any) => {
       this.loading = false;
       this.apiErrorEvent.emit(error.error);
     });
@@ -1039,9 +1039,9 @@ export class RecordManagerDesignListComponent implements OnInit {
         // JSON['password'] = data1?.password;
         const reason = data1.reasonForEdit == 'Required' ? 'test' : null;
         const activeRMDRecord = this.getAllData.filter(i => i.recordState == "Active");
-        const JSON: any = this.jsonService.updateRRAJson(this.baseModelTableData.id, this.recordId, this.recordReviewAndApprovalData, recordManagerDesignId, reason, activeRMDRecord[0]);
+        const reviewApprovalRequest: any = this.jsonService.updateRRAJson(this.baseModelTableData.id, this.recordId, this.recordReviewAndApprovalData, recordManagerDesignId, reason, activeRMDRecord[0]);
         // Create post API
-        this.service.updateRRARecord(JSON).then((data: any) => {
+        this.service.updateRRARecord(reviewApprovalRequest).then((data: any) => {
           if (data['ok'] !== undefined && data['ok'] === false) {
             throw data;
           }
